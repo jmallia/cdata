@@ -1,7 +1,7 @@
 import os
 from django.conf import settings
 import requests
-from background_task import background
+
 # Configure settings for project
 # Need to run this before calling models from application!
 
@@ -14,7 +14,7 @@ from .models import Stats
      #def __init__(self, date):
          #self.date = date
 
-@background(schedule=120)
+
 def get_the_data():
 
             url = "https://covidtracking.com//api/states/daily?state=NC&date=20200325"

@@ -25,5 +25,3 @@ urlpatterns = [
     path('home/', views.HomeView.as_view(), name='home'),
     url(r'^$', views.HomeView.as_view(), name='home'),
 ]
-
-get_the_data()

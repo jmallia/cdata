@@ -18,7 +18,7 @@ import time
 from django.http import JsonResponse
 import time
 import requests
-from viral.models import Stats
+from viral.models import Stats, States
 import datetime
 
 #from viral.get_data import UpdateData
@@ -34,6 +34,7 @@ class HomeView(TemplateView):
         #print(stats_published)
         superset = []
         cdata = Stats.objects.filter(state="NC").order_by('date')
+        states = States.objects.all()
 
         for item in cdata:
             data_item = []
@@ -46,7 +47,42 @@ class HomeView(TemplateView):
             superset.append(data_item)
             print(superset)
 
+        context['states'] = states
         context['cdata'] = superset
         #[['Mushrooms', 3],['Onions', 1],['Olives', 1],['Zucchini', 1],['Pepperoni', 2]]
+
+
+
+        return context
+
+class StateView(TemplateView):
+    template_name = 'state.html'
+    def get_context_data(self, **kwargs):
+        context = super(StateView, self).get_context_data(**kwargs)
+
+        #stats = UpdateData(all)
+        #stats_published = stats.get_the_data()
+        #print(stats_published)
+        superset = []
+        cdata = Stats.objects.filter(state=self.kwargs['state']).order_by('date')
+        states = States.objects.all()
+
+        for item in cdata:
+            data_item = []
+            d = datetime.datetime.strftime(item.date, '%Y%m%d')
+            data_item.append(d)
+            data_item.append(item.positive)
+
+            print(d)
+            print(item.positive)
+            superset.append(data_item)
+            print(superset)
+
+        context['selected'] = self.kwargs['state']
+        context['states'] = states
+        context['cdata'] = superset
+        #[['Mushrooms', 3],['Onions', 1],['Olives', 1],['Zucchini', 1],['Pepperoni', 2]]
+
+
 
         return context

@@ -21,4 +21,13 @@ class Stats(BaseModel):
     totalTestResultsIncrease = models.IntegerField(null = True)
     total =  models.IntegerField(null = True)
 
+class States(BaseModel):
+    class Meta:
+        db_table = 'states'
+
+    
+    state = models.CharField(max_length=2, null = True, blank = True)
+
+
+
 # Create your models here.

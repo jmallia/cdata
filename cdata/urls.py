@@ -24,4 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.HomeView.as_view(), name='home'),
     url(r'^$', views.HomeView.as_view(), name='home'),
+    path('chart/<slug:state>/', views.StateView.as_view(), name='state'),
 ]
